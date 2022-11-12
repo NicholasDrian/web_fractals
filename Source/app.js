@@ -78,9 +78,10 @@ var Run = function (vsText, fsText) {
 	gl.enableVertexAttribArray(positionAttribLocation);
 
 	
-
-	canvas.width = canvas.clientWidth;
-	canvas.height = canvas.clientHeight;
+	const dpr = window.devicePixelRatio;
+	canvas.width = canvas.clientWidth * dpr;
+	canvas.height = canvas.clientHeight * dpr;
+	console.log('dpr: ' + dpr);
 	gl.viewport(0, 0, canvas.width, canvas.height);
 	gl.drawArrays(gl.TRIANGLES, 0, 3);
 };
