@@ -93,7 +93,7 @@ var Run = function (vsText, fsText) {
 		updateSize();
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 		gl.drawArrays(gl.TRIANGLES, 0, 3);
-		//break;
+		break; //need to cap fps
 	}
 };
 
