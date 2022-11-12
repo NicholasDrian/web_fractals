@@ -90,10 +90,13 @@ var Run = function (vsText, fsText) {
 	gl.enableVertexAttribArray(positionAttribLocation);
 
 	while (true) {
-		updateSize();
-		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-		gl.drawArrays(gl.TRIANGLES, 0, 3);
-		break; //need to cap fps
+		requestAnimationFrame(tick);
 	}
 };
+
+var tick = function() {
+	updateSize();
+	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	gl.drawArrays(gl.TRIANGLES, 0, 3);
+}
 
