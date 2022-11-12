@@ -2,8 +2,8 @@ var canvas = document.getElementById("screen");
 var gl = canvas.getContext('webgl');
 
 function updateSize() {
-  var width = canvas.clientWidth;
-  var height = canvas.clientHeight;
+  var width = window.innerWidth;
+  var height = window.innerHeight;
   if (canvas.width != width ||
       canvas.height != height) {
     canvas.width = width;
