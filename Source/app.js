@@ -1,27 +1,25 @@
-var vertexShaderText = 
-[
-'precision mediump float;',
-'',
-'attribute vec2 vertPosition;',
-'',
-'void main()',
-'{',
-'	gl_Position = vec4(vertPosition, 0.0, 1.0);',
-'}'
-].join('\n');
 
-var fragmentShaderText = 
-[
-'precision mediump float;',
-'',
-'void main()',
-'{',
-'	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);',
-'}'
-].join('\n');
+var Init = function () {
+	loadTextResource('../Shaders/basic.vs', function (vsErr, vsText) {
+		if (vsErr) {
+			alert('Fatal error getting vertex shader (see console)');
+			console.error(vsErr);
+		} else {
+			loadTextResource('../Shaders/basic.fs', function (fsErr, fsText) {
+				if (fsErr) {
+					alert('Fatal error getting fragment shader (see console)');
+					console.error(fsErr);
+				} else {
+					Run(vsText, fsText);
+				}
+			});
+		}
+	});
+};
 
-var InitFractal = function () {
+var Run = function (vsText, fsText) {
 	console.log('This is working');
+	console.log(loadTextResource('../Shaders/basic.fs'));
 	var canvas = document.getElementById('screen');
 	var gl = canvas.getContext('webgl');
 	if (!gl) {
@@ -34,7 +32,7 @@ var InitFractal = function () {
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 	var vertexShader = gl.createShader(gl.VERTEX_SHADER);
-	gl.shaderSource(vertexShader, vertexShaderText);
+	gl.shaderSource(vertexShader, vsText);
 	gl.compileShader(vertexShader);
 	if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
 		console.error('ERROR compiling vertex shader', gl.getShaderInfoLog(vertexShader));
@@ -42,7 +40,7 @@ var InitFractal = function () {
 	}
 
 	var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-	gl.shaderSource(fragmentShader, fragmentShaderText);
+	gl.shaderSource(fragmentShader, fsText);
 	gl.compileShader(fragmentShader);
 	if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
 		console.error('ERROR compiling fragment shader', gl.getShaderInfoLog(fragmentShader));
