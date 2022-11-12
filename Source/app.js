@@ -90,7 +90,9 @@ var Run = function (vsText, fsText) {
 	gl.vertexAttribPointer(positionAttribLocation, 2, gl.FLOAT, gl.FALSE, 2 * Float32Array.BYTES_PER_ELEMENT, 0);
 	gl.enableVertexAttribArray(positionAttribLocation);
 
-	updateSize();
-	gl.drawArrays(gl.TRIANGLES, 0, 3);
+	while (true) {
+		updateSize();
+		gl.drawArrays(gl.TRIANGLES, 0, 3);
+	}
 };
 
