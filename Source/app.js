@@ -49,6 +49,7 @@ var Run = function (vsText, fsText) {
 	gl.attachShader(program, vertexShader);
 	gl.attachShader(program, fragmentShader);
 	gl.linkProgram(program);
+	gl.useProgram(program);
 	if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
 		console.error('ERROR linking program', gl.getProgramInfoLog(program));
 		return;
@@ -76,8 +77,11 @@ var Run = function (vsText, fsText) {
 	gl.vertexAttribPointer(positionAttribLocation, 2, gl.FLOAT, gl.FALSE, 2 * Float32Array.BYTES_PER_ELEMENT, 0);
 	gl.enableVertexAttribArray(positionAttribLocation);
 
-	gl.useProgram(program);
-	gl.viewport(0, 0, canvas.clientWidth, canvas.clientHeight);
+	
+
+	canvas.width = canvas.clientWidth;
+	canvas.height = canvas.clientHeight;
+	gl.viewport(0, 0, canvas.width, canvas.height);
 	gl.drawArrays(gl.TRIANGLES, 0, 3);
 };
 
