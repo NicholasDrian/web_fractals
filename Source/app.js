@@ -1,4 +1,16 @@
 
+function updateSize() {
+  canvas = document.getElementById("screen");
+  var width = canvas.clientWidth;
+  var height = canvas.clientHeight;
+  if (canvas.width != width ||
+      canvas.height != height) {
+    canvas.width = width;
+    canvas.height = height;
+  }
+  gl.viewport(0, 0, width, height);
+}
+
 var InitApp = function () {
 	loadTextResource('../Shaders/basic.vs', function (vsErr, vsText) {
 		if (vsErr) {
@@ -77,12 +89,7 @@ var Run = function (vsText, fsText) {
 	gl.vertexAttribPointer(positionAttribLocation, 2, gl.FLOAT, gl.FALSE, 2 * Float32Array.BYTES_PER_ELEMENT, 0);
 	gl.enableVertexAttribArray(positionAttribLocation);
 
-	
-	const dpr = window.devicePixelRatio;
-	canvas.width = canvas.clientWidth * dpr;
-	canvas.height = canvas.clientHeight * dpr;
-	console.log('dpr: ' + dpr);
-	gl.viewport(0, 0, canvas.width, canvas.height);
+	updateSize();
 	gl.drawArrays(gl.TRIANGLES, 0, 3);
 };
 
