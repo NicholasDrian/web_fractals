@@ -77,7 +77,7 @@ var Run = function (vsText, fsText) {
 	gl.enableVertexAttribArray(positionAttribLocation);
 
 	gl.useProgram(program);
-	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+	gl.viewport(0, 0, canvas.clientWidth, canvas.clientHeight);
 	gl.drawArrays(gl.TRIANGLES, 0, 3);
 };
 
