@@ -18,8 +18,6 @@ var InitApp = function () {
 };
 
 var Run = function (vsText, fsText) {
-	console.log('This is working');
-	console.log(loadTextResource('../Shaders/basic.fs'));
 	var canvas = document.getElementById('screen');
 	var gl = canvas.getContext('webgl');
 	if (!gl) {
@@ -75,17 +73,11 @@ var Run = function (vsText, fsText) {
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
 
 	var positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
-	gl.vertexAttribPointer(
-		positionAttribLocation,
-		2,
-		gl.FLOAT,
-		gl.FALSE, //normalized
-		2 * Float32Array.BYTES_PER_ELEMENT,
-		0
-	);
+	gl.vertexAttribPointer(positionAttribLocation, 2, gl.FLOAT, gl.FALSE, 2 * Float32Array.BYTES_PER_ELEMENT, 0);
 	gl.enableVertexAttribArray(positionAttribLocation);
 
 	gl.useProgram(program);
+	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 	gl.drawArrays(gl.TRIANGLES, 0, 3);
 };
 
