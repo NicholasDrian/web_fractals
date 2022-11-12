@@ -1,5 +1,5 @@
 
-var Init = function () {
+var InitApp = function () {
 	loadTextResource('../Shaders/basic.vs', function (vsErr, vsText) {
 		if (vsErr) {
 			alert('Fatal error getting vertex shader (see console)');
