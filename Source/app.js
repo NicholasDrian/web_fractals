@@ -32,8 +32,6 @@ var InitApp = function () {
 };
 
 var Run = function (vsText, fsText) {
-	var canvas = document.getElementById('screen');
-	var gl = canvas.getContext('webgl');
 	if (!gl) {
 		gl = cnavas.getContext('expiramental-webgl');
 	}
@@ -91,7 +89,6 @@ var Run = function (vsText, fsText) {
 	gl.enableVertexAttribArray(positionAttribLocation);
 
 	fps = new fpsTracker();
-	
 	requestAnimationFrame(tick);
 };
 
