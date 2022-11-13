@@ -1,6 +1,7 @@
 var canvas = document.getElementById("screen");
 var gl = canvas.getContext('webgl');
-
+var fps;
+	
 function updateSize() {
   var width = window.innerWidth;
   var height = window.innerHeight;
@@ -89,10 +90,13 @@ var Run = function (vsText, fsText) {
 	gl.vertexAttribPointer(positionAttribLocation, 2, gl.FLOAT, gl.FALSE, 2 * Float32Array.BYTES_PER_ELEMENT, 0);
 	gl.enableVertexAttribArray(positionAttribLocation);
 
+	fps = new fpsTracker();
+
 	requestAnimationFrame(tick);
 };
 
 var tick = function() {
+	fps.update();
 	updateSize();
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	gl.drawArrays(gl.TRIANGLES, 0, 3);

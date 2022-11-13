@@ -32,3 +32,23 @@ var loadJSONResource = function (url, callback) {
 		}
 	});
 };
+
+var fpsTracker = class {
+
+	constructor() {
+    	this.framesPassed = 0;
+    	this.previousTime = performance.now;
+		const framesBetweenUpdate = 10;
+ 	}
+
+  	update(){
+  		this.framesPassed++;
+  		if (this.framesPassed == framesBetweenUpdate) {
+  			const time = performance.now();
+  			const fps = (time - previousTime) / (framesBetweenUpdate * 1000);
+  			this.previousTime = time;
+  			this.framesPassed = 0;
+  			document.title = 'fps: ' + Math.floor(fps);
+  	}
+
+};
