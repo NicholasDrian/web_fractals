@@ -50,6 +50,7 @@ var fpsTracker = class {
   			this.framesPassed = 0;
   			//TODO:
   			// document.title = 'fps: ' + Math.floor(fps);
+  			document.getElementById("fpsDisplay").innerHTML = "FPS " + fps;
   		}
   	}
 
