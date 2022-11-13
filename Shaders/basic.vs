@@ -1,4 +1,3 @@
-precision mediump float;
 attribute vec2 vertPosition;
 
 void main()
