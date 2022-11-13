@@ -38,7 +38,7 @@ var fpsTracker = class {
 	constructor() {
     	this.framesPassed = 0;
     	this.previousTime = performance.now;
-		const framesBetweenUpdate = 100;
+		this.framesBetweenUpdate = 100;
  	}
 
   	update() {
