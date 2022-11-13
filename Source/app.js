@@ -93,7 +93,6 @@ var Run = function (vsText, fsText) {
 };
 
 var tick = function() {
-	console.log("tick");
 	fps.update();
 	updateSize();
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
