@@ -45,7 +45,7 @@ var fpsTracker = class {
   		this.framesPassed++;
   		if (this.framesPassed == this.framesBetweenUpdate) {
   			const time = performance.now();
-  			const fps = (time - this.previousTime) / (this.framesBetweenUpdate * 1000);
+  			const fps = (this.framesBetweenUpdate * 1000) / (time - this.previousTime);
   			this.previousTime = time;
   			this.framesPassed = 0;
   			console.log("FPS: " + fps);
