@@ -91,7 +91,7 @@ var Run = function (vsText, fsText) {
 	gl.enableVertexAttribArray(positionAttribLocation);
 
 	fps = new fpsTracker();
-
+	
 	requestAnimationFrame(tick);
 };
 
