@@ -114,14 +114,17 @@ var Run = function (vsText, fsText) {
 	gl.enableVertexAttribArray(colorAttribLocation);
 
 	fps = new fpsTracker();
+
+	var tick = function() {
+		fps.update();
+		updateSize();
+		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+		gl.drawElements(gl.TRIANGLES, triangleIndices.length, gl.UNSIGNED_SHORT, 0);
+		requestAnimationFrame(tick);
+	}
+
 	requestAnimationFrame(tick);
 };
 
-var tick = function() {
-	fps.update();
-	updateSize();
-	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-	gl.drawElements(gl.TRIANGLES, triangleIndices.length, gl.UNSIGNED_SHORT, 0);
-	requestAnimationFrame(tick);
-}
+
 
