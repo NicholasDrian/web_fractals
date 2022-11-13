@@ -80,10 +80,18 @@ var Run = function (vsText, fsText) {
 		 0.5, -0.5, 0.0,    1.0, 0.0, 1.0
 	]
 
+	var triangleIndices = 
+	[  
+		0, 1, 2
+	]
+
 	var triangleVertexBufferObject = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
 
+	var triangleIndexBufferObject = gl.createBuffer();
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, triangleIndexBufferObject);
+	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(triangleIndices), gl.STATIC_DRAW);
 
   var positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
 	gl.vertexAttribPointer(
@@ -113,7 +121,7 @@ var tick = function() {
 	fps.update();
 	updateSize();
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-	gl.drawArrays(gl.TRIANGLES, 0, 3);
+	gl.drawElements(gl.TRIANGLES, triangleIndices.length, gl.UNSIGNED_SHORT, 0);
 	requestAnimationFrame(tick);
 }
 
