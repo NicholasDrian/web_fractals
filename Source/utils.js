@@ -42,7 +42,7 @@ var fpsTracker = class {
  	}
 
   	update() {
-  		console.log("update");
+  		console.log("update" + this.framesPassed);
   		this.framesPassed++;
   		if (this.framesPassed == this.framesBetweenUpdate) {
   			const time = performance.now();
