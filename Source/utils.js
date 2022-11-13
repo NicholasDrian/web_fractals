@@ -54,7 +54,7 @@ var fpsTracker = class {
   			//let fpsDisplay = document.querySelector("#fpsDisplay");
   			//var fpsTest = document.createTextNode("Changed");
   			//fpsDisplay.appendChild(fpsText);
-  			console.log("FPS: "fps);
+  			console.log("FPS: " + fps);
   		}
   	}
 
