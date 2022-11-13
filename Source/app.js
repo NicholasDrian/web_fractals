@@ -7,10 +7,10 @@ function updateSize() {
   var height = window.innerHeight;
   if (canvas.width != width ||
       canvas.height != height) {
-    canvas.width = width / 2;
+    canvas.width = width;
     canvas.height = height;
   }
-  gl.viewport(0, 0, width / 2, height);
+  gl.viewport(0, 0, width, height);
 }
 
 var InitApp = function () {
