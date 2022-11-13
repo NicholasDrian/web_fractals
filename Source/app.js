@@ -14,12 +14,12 @@ function updateSize() {
 }
 
 var InitApp = function () {
-	loadTextResource('../Shaders/basic.vs', function (vsErr, vsText) {
+	loadTextResource('../Shaders/basic.vs.glsl', function (vsErr, vsText) {
 		if (vsErr) {
 			alert('Fatal error getting vertex shader (see console)');
 			console.error(vsErr);
 		} else {
-			loadTextResource('../Shaders/basic.fs', function (fsErr, fsText) {
+			loadTextResource('../Shaders/basic.fs.glsl', function (fsErr, fsText) {
 				if (fsErr) {
 					alert('Fatal error getting fragment shader (see console)');
 					console.error(fsErr);
