@@ -2,17 +2,6 @@ var canvas = document.getElementById("screen");
 var gl = canvas.getContext('webgl');
 var fps;
 	
-function updateSize() {
-  var width = window.innerWidth;
-  var height = window.innerHeight;
-  if (canvas.width != width ||
-      canvas.height != height) {
-    canvas.width = width;
-    canvas.height = height;
-  }
-  gl.viewport(0, 0, width, height);
-}
-
 var InitApp = function () {
 	loadTextResource('../Shaders/basic.vs.glsl', function (vsErr, vsText) {
 		if (vsErr) {
@@ -94,7 +83,7 @@ var Run = function (vsText, fsText) {
 
 var tick = function() {
 	fps.update();
-	updateSize();
+  gl.viewport(0, 0, window.innerWidth, window.innerHeight);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	gl.drawArrays(gl.TRIANGLES, 0, 3);
 	requestAnimationFrame(tick);
