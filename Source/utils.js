@@ -38,7 +38,7 @@ var fpsTracker = class {
 	constructor() {
     	this.framesPassed = 0;
     	this.previousTime = performance.now;
-		const framesBetweenUpdate = 10;
+		const framesBetweenUpdate = 100;
  	}
 
   	update() {
@@ -51,9 +51,10 @@ var fpsTracker = class {
   			//TODO:
   			// document.title = 'fps: ' + Math.floor(fps);
   			//document.getElementById("fpsDisplay").innerHTML = "FPS " + fps;
-  			let fpsDisplay = document.querySelector("#fpsDisplay");
-  			var fpsTest = document.createTextNode("Changed");
-  			fpsDisplay.appendChild(fpsText);
+  			//let fpsDisplay = document.querySelector("#fpsDisplay");
+  			//var fpsTest = document.createTextNode("Changed");
+  			//fpsDisplay.appendChild(fpsText);
+  			console.log("FPS: "fps);
   		}
   	}
 
