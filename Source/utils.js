@@ -42,19 +42,12 @@ var fpsTracker = class {
  	}
 
   	update() {
-  		console.log("update" + this.framesPassed);
   		this.framesPassed++;
   		if (this.framesPassed == this.framesBetweenUpdate) {
   			const time = performance.now();
-  			const fps = (time - previousTime) / (this.framesBetweenUpdate * 1000);
+  			const fps = (time - this.previousTime) / (this.framesBetweenUpdate * 1000);
   			this.previousTime = time;
   			this.framesPassed = 0;
-  			//TODO:
-  			// document.title = 'fps: ' + Math.floor(fps);
-  			//document.getElementById("fpsDisplay").innerHTML = "FPS " + fps;
-  			//let fpsDisplay = document.querySelector("#fpsDisplay");
-  			//var fpsTest = document.createTextNode("Changed");
-  			//fpsDisplay.appendChild(fpsText);
   			console.log("FPS: " + fps);
   		}
   	}
