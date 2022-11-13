@@ -74,19 +74,37 @@ var Run = function (vsText, fsText) {
 	}
 
 	var triangleVertices = 
-	[  // X, Y
-		0.0, 0.5,
-		-0.5, -0.5,
-		0.5, -0.5
+	[  // X, Y, Z          R,  G,  B  
+		 0.0,  0.5, 0.0,    1.0, 1.0, 0.0,
+		-0.5, -0.5, 0.0,    0.0, 1.0, 1.0,
+		 0.5, -0.5, 0.0,    1.0, 0.0, 1.0
 	]
+
+
+  var positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
+	gl.vertexAttribPointer(
+		positionAttribLocation, 
+		3, 
+		gl.FLOAT, 
+		gl.FALSE, 
+		6 * Float32Array.BYTES_PER_ELEMENT, 
+		0);
+	gl.enableVertexAttribArray(positionAttribLocation);
+
+	var colorAttribLocation = gl.getAttribLocation(program, 'vertColor');
+	gl.vertexAttribPointer(
+		colorAttribLocation, 
+		3, 
+		gl.FLOAT, 
+		gl.FALSE, 
+		6 * Float32Array.BYTES_PER_ELEMENT, 
+		3 * Float32Array.BYTES_PER_ELEMENT);
+	gl.enableVertexAttribArray(colorAttribLocation);
 
 	var triangleVertexBufferObject = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
 
-	var positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
-	gl.vertexAttribPointer(positionAttribLocation, 2, gl.FLOAT, gl.FALSE, 2 * Float32Array.BYTES_PER_ELEMENT, 0);
-	gl.enableVertexAttribArray(positionAttribLocation);
 
 	fps = new fpsTracker();
 	requestAnimationFrame(tick);

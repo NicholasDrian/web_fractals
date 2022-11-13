@@ -48,7 +48,7 @@ var fpsTracker = class {
   			const fps = (this.framesBetweenUpdate * 1000) / (time - this.previousTime);
   			this.previousTime = time;
   			this.framesPassed = 0;
-  			console.log("FPS: " + fps);
+  			console.log("FPS: " + Math.floor(fps));
   		}
   	}
 
