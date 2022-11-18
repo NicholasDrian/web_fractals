@@ -1,3 +1,14 @@
+function updateSize() {
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+  if (canvas.width != width ||
+      canvas.height != height) {
+    canvas.width = width;
+    canvas.height = height;
+  }
+  gl.viewport(0, 0, width, height);
+}
+
 var loadTextResource = function (url, callback) {
 	var request = new XMLHttpRequest();
 	request.open('GET', url + '?please-dont-cache=' + Math.random(), true);

@@ -1,25 +1,16 @@
 var canvas = document.getElementById("screen");
 var gl = canvas.getContext('webgl');
 var fps;
-	
-function updateSize() {
-  var width = window.innerWidth;
-  var height = window.innerHeight;
-  if (canvas.width != width ||
-      canvas.height != height) {
-    canvas.width = width;
-    canvas.height = height;
-  }
-  gl.viewport(0, 0, width, height);
-}
+var shaders = new ShaderMap();
 
-var InitApp = function () {
-	loadTextResource('../Shaders/basic.vs.glsl', function (vsErr, vsText) {
+
+/*var InitApp = function () {
+	loadTextResource('../Shaders/basic.vs', function (vsErr, vsText) {
 		if (vsErr) {
 			alert('Fatal error getting vertex shader (see console)');
 			console.error(vsErr);
 		} else {
-			loadTextResource('../Shaders/basic.fs.glsl', function (fsErr, fsText) {
+			loadTextResource('../Shaders/basic.fs', function (fsErr, fsText) {
 				if (fsErr) {
 					alert('Fatal error getting fragment shader (see console)');
 					console.error(fsErr);
@@ -29,9 +20,9 @@ var InitApp = function () {
 			});
 		}
 	});
-};
+};*/
 
-var Run = function (vsText, fsText) {
+var Run = function () {
 	if (!gl) {
 		gl = cnavas.getContext('expiramental-webgl');
 	}
@@ -41,7 +32,7 @@ var Run = function (vsText, fsText) {
 	gl.clearColor(0.5, 0.5, 0.5, 1.0);
 
 	var vertexShader = gl.createShader(gl.VERTEX_SHADER);
-	gl.shaderSource(vertexShader, vsText);
+	gl.shaderSource(vertexShader, shaders.get("basic.vs"));
 	gl.compileShader(vertexShader);
 	if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
 		console.error('ERROR compiling vertex shader', gl.getShaderInfoLog(vertexShader));
@@ -49,7 +40,7 @@ var Run = function (vsText, fsText) {
 	}
 
 	var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-	gl.shaderSource(fragmentShader, fsText);
+	gl.shaderSource(fragmentShader, shaders.get("basic.fs"));
 	gl.compileShader(fragmentShader);
 	if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
 		console.error('ERROR compiling fragment shader', gl.getShaderInfoLog(fragmentShader));
