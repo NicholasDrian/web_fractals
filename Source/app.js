@@ -1,7 +1,7 @@
 var canvas = document.getElementById("screen");
 var gl = canvas.getContext('webgl');
 var fps;
-var shaders = new ShaderMap();
+var shaders;
 
 
 /*var InitApp = function () {
@@ -23,6 +23,9 @@ var shaders = new ShaderMap();
 };*/
 
 var Run = function () {
+
+	shaders = new ShaderMap();
+
 	if (!gl) {
 		gl = cnavas.getContext('expiramental-webgl');
 	}
