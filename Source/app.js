@@ -37,8 +37,8 @@ var Init = function () {
 				} else {
 					shaders.add("basic.fs", basic_fs);
 
-					glInit();
-					
+					Run();
+
 				}
 			});
 		}
