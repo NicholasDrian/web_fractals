@@ -4,24 +4,6 @@ var fps;
 var shaders;
 
 
-/*var InitApp = function () {
-	loadTextResource('../Shaders/basic.vs', function (vsErr, vsText) {
-		if (vsErr) {
-			alert('Fatal error getting vertex shader (see console)');
-			console.error(vsErr);
-		} else {
-			loadTextResource('../Shaders/basic.fs', function (fsErr, fsText) {
-				if (fsErr) {
-					alert('Fatal error getting fragment shader (see console)');
-					console.error(fsErr);
-				} else {
-					Run(vsText, fsText);
-				}
-			});
-		}
-	});
-};*/
-
 var Run = function () {
 
 	shaders = new ShaderMap();
@@ -36,8 +18,8 @@ var Run = function () {
 	gl.clearColor(0.5, 0.5, 0.5, 1.0);
 
 	var vertexShader = gl.createShader(gl.VERTEX_SHADER);
+	while(!shaders.get("basic.vs"));
 	gl.shaderSource(vertexShader, shaders.get("basic.vs"));
-	console.log(shaders.get("basic.vs"));
 	gl.compileShader(vertexShader);
 	if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
 		console.error('ERROR compiling vertex shader', gl.getShaderInfoLog(vertexShader));
@@ -45,6 +27,7 @@ var Run = function () {
 	}
 
 	var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+	while(!shaders.get("basic.fs"));
 	gl.shaderSource(fragmentShader, shaders.get("basic.fs"));
 	gl.compileShader(fragmentShader);
 	if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
