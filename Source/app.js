@@ -3,11 +3,14 @@ var gl = canvas.getContext('webgl');
 var fps;
 var shaders;
 
+var Init = function {
+	shaders = new ShaderMap();
+	shaders.init();
+}
 
 var Run = function () {
 
-	shaders = new ShaderMap();
-	shaders.init();
+	
 
 	if (!gl) {
 		gl = cnavas.getContext('expiramental-webgl');
