@@ -5,7 +5,26 @@ var shaders;
 
 var Init = function () {
 	shaders = new ShaderMap();
-	shaders.init();
+
+	loadTextResource('../Shaders/basic.vs', function (Err, basic_vs) {
+		if (Err) {
+			alert('Fatal error getting vertex shader (see console)');
+			console.error(Err);
+		} else {
+			shaders.add("basic.vs", basic_vs);
+
+			loadTextResource('../Shaders/basic.fs', function (Err, basic_fs) {
+				if (Err) {
+					alert('Fatal error getting vertex shader (see console)');
+					console.error(Err);
+				} else {
+					shaders.add("basic.fs", basic_fs);
+
+					Run()
+				}
+			});
+		}
+	});
 };
 
 var Run = function () {
