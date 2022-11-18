@@ -25,6 +25,7 @@ var shaders;
 var Run = function () {
 
 	shaders = new ShaderMap();
+	shaders.init();
 
 	if (!gl) {
 		gl = cnavas.getContext('expiramental-webgl');

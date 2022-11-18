@@ -5,12 +5,15 @@ var ShaderMap = class {
 
 		this.map = new Map(); 
 
+	}
+
+	init() {
 		loadTextResource('../Shaders/basic.vs', function (vsErr, vsText) {
 			if (vsErr) {
 				alert('Fatal error getting vertex shader (see console)');
 				console.error(vsErr);
 			} else {
-				this.map.set("basic.vs", vsText);
+				shaders.add("basic.vs", vsText);
 			}
 		});
 
@@ -19,14 +22,18 @@ var ShaderMap = class {
 				alert('Fatal error getting vertex shader (see console)');
 				console.error(vsErr);
 			} else {
-				this.map.set("basic.fs", fsText);
+				shaders.add("basic.fs", fsText);
 			}
 		});
 
 	}
 
-	get(shader) {
-		return this.map.get(shader);
+	add(name, text) {
+		this.map.set(name, text);
+	}
+
+	get(name) {
+		return this.map.get(name);
 	}
 
 }
