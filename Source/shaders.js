@@ -15,12 +15,12 @@ var ShaderMap = class {
 	init() {
 
 		for (const file in this.files) {
-			loadTextResource('../Shaders/basic.vs', function (vsErr, vsText) {
-				if (vsErr) {
+			loadTextResource(file, function (Err, Text) {
+				if (Err) {
 					alert('Fatal error getting vertex shader (see console)');
-					console.error(vsErr);
+					console.error(Err);
 				} else {
-					shaders.add("basic.vs", vsText);
+					shaders.add("basic.vs", Text);
 					if (++shaders.loaded == shaders.files.length) {
 						Run();
 					}
