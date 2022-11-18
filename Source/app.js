@@ -3,6 +3,8 @@ var gl;
 var shaders;
 
 var glInit = function () {
+	
+	canvas = document.getElementById("screen");
 	gl = canvas.getContext('webgl');
 	if (!gl) {
 		gl = cnavas.getContext('expiramental-webgl');
@@ -17,7 +19,6 @@ var Init = function () {
 
 	glInit();
 
-	canvas = document.getElementById("screen");
 	shaders = new Shaders();
 
 	loadTextResource('../Shaders/basic.vs', function (Err, basic_vs) {
