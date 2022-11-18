@@ -1,10 +1,24 @@
-var canvas = document.getElementById("screen");
-var gl = canvas.getContext('webgl');
-var fps;
+var canvas;
+var gl;
 var shaders;
 
+var glInit = function () {
+	gl = canvas.getContext('webgl');
+	if (!gl) {
+		gl = cnavas.getContext('expiramental-webgl');
+	}
+	if (!gl) {
+		alert('Your browser does not support WebGL');
+	}
+	gl.clearColor(0.5, 0.5, 0.5, 1.0);
+}
+
 var Init = function () {
-	shaders = new ShaderMap();
+
+	glInit();
+
+	canvas = document.getElementById("screen");
+	shaders = new Shaders();
 
 	loadTextResource('../Shaders/basic.vs', function (Err, basic_vs) {
 		if (Err) {
@@ -20,45 +34,19 @@ var Init = function () {
 				} else {
 					shaders.add("basic.fs", basic_fs);
 
-					Run()
+					glInit();
 				}
 			});
 		}
 	});
 };
 
+
 var Run = function () {
 
-
-	if (!gl) {
-		gl = cnavas.getContext('expiramental-webgl');
-	}
-	if (!gl) {
-		alert('Your browser does not support WebGL');
-	}
-	gl.clearColor(0.5, 0.5, 0.5, 1.0);
-
-	var vertexShader = gl.createShader(gl.VERTEX_SHADER);
-	while(!shaders.get("basic.vs"));
-	gl.shaderSource(vertexShader, shaders.get("basic.vs"));
-	gl.compileShader(vertexShader);
-	if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
-		console.error('ERROR compiling vertex shader', gl.getShaderInfoLog(vertexShader));
-		return;
-	}
-
-	var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-	while(!shaders.get("basic.fs"));
-	gl.shaderSource(fragmentShader, shaders.get("basic.fs"));
-	gl.compileShader(fragmentShader);
-	if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
-		console.error('ERROR compiling fragment shader', gl.getShaderInfoLog(fragmentShader));
-		return;
-	}
-
 	var program = gl.createProgram();
-	gl.attachShader(program, vertexShader);
-	gl.attachShader(program, fragmentShader);
+	gl.attachShader(program, shaders.get("basic.vs"));
+	gl.attachShader(program, shaders.get("basic.fs"));
 	gl.linkProgram(program);
 	gl.useProgram(program);
 	if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
