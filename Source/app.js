@@ -3,8 +3,9 @@ var gl;
 var shaders;
 
 var glInit = function () {
-	
+
 	canvas = document.getElementById("screen");
+
 	gl = canvas.getContext('webgl');
 	if (!gl) {
 		gl = cnavas.getContext('expiramental-webgl');
@@ -13,6 +14,7 @@ var glInit = function () {
 		alert('Your browser does not support WebGL');
 	}
 	gl.clearColor(0.5, 0.5, 0.5, 1.0);
+
 }
 
 var Init = function () {
@@ -36,6 +38,7 @@ var Init = function () {
 					shaders.add("basic.fs", basic_fs);
 
 					glInit();
+					
 				}
 			});
 		}
@@ -63,10 +66,10 @@ var Run = function () {
 	}
 
 	var triangleVertices = 
-	[  // X, Y, Z          R,  G,  B  
-		 0.0,  0.5, 0.0,    1.0, 1.0, 0.0,
-		-0.5, -0.5, 0.0,    0.0, 1.0, 1.0,
-		 0.5, -0.5, 0.0,    1.0, 0.0, 1.0
+	[ //X,    Y,   Z       R,   G,   B  
+		  0.0,  0.5, 0.0,    1.0, 1.0, 0.0,
+	 	 -0.5, -0.5, 0.0,    0.0, 1.0, 1.0,
+		  0.5, -0.5, 0.0,    1.0, 0.0, 1.0
 	]
 
 	var triangleIndices = 
