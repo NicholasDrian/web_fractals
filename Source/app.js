@@ -37,6 +37,7 @@ var Run = function () {
 
 	var vertexShader = gl.createShader(gl.VERTEX_SHADER);
 	gl.shaderSource(vertexShader, shaders.get("basic.vs"));
+	console.log(shaders.get("basic.vs"));
 	gl.compileShader(vertexShader);
 	if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
 		console.error('ERROR compiling vertex shader', gl.getShaderInfoLog(vertexShader));
