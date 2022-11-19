@@ -139,6 +139,10 @@ var Run = function () {
 		fps.update();
 		updateSize();
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+		aspect = canvas.clientWidth / canvas.clientHeight;
+		gl.uniform1f(aspectUniformLocation, aspect);
+
 		gl.drawElements(gl.TRIANGLES, triangleIndices.length, gl.UNSIGNED_SHORT, 0);
 		requestAnimationFrame(tick);
 	}
