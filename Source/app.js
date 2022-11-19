@@ -131,9 +131,11 @@ var Run = function () {
 
 
 
+	var xRotationMatrix = new Float32Array(16);
+	var yRotationMatrix = new Float32Array(16);
 	var identityMatrix = new Float32Array(16);
 	mat4.identity(identityMatrix);
-	var angle = 0;
+	var angle;
 
 
 	fps = new fpsTracker();
