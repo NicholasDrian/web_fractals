@@ -41,8 +41,10 @@ var Init = function () {
 
 				}
 			});
+
 		}
 	});
+	
 };
 
 
