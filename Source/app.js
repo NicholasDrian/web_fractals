@@ -111,7 +111,7 @@ var Run = function () {
 
 	var aspect = canvas.clientWidth / canvas.clientHeight;
 	var aspectUniformLocation = gl.getUniformLocation(program, 'aspect');
-	gl.uniform1f(aspectUniformLocation, gl.FALSE, aspect);
+	gl.uniform1f(aspectUniformLocation, aspect);
 
 
 	var matWorldUniformLocation = gl.getUniformLocation(program, 'mWorld');
