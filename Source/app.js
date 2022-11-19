@@ -113,9 +113,6 @@ var Run = function () {
 
 
 	var aspect = canvas.clientWidth / canvas.clientHeight;
-	var aspectUniformLocation = gl.getUniformLocation(program, 'aspect');
-	gl.uniform1f(aspectUniformLocation, aspect);
-
 
 	var matWorldUniformLocation = gl.getUniformLocation(program, 'mWorld');
 	var matViewUniformLocation = gl.getUniformLocation(program, 'mView');
@@ -153,11 +150,8 @@ var Run = function () {
 		mat4.rotate(yRotationMatrix, identityMatrix, angle, [0, 1, 0]);
 		mat4.rotate(xRotationMatrix, identityMatrix, angle / 4, [1, 0, 0]);
 		mat4.mul(worldMatrix, yRotationMatrix, xRotationMatrix);
-		//gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
+		gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
 
-
-		aspect = canvas.clientWidth / canvas.clientHeight;
-		gl.uniform1f(aspectUniformLocation, aspect);
 
 		mat4.perspective(projMatrix, glMatrix.toRadian(45), aspect, 0.1, 1000.0);
 		gl.uniformMatrix4fv(matProjUniformLocation, gl.FALSE, projMatrix);
