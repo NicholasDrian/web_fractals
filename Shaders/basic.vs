@@ -13,5 +13,10 @@ uniform float aspect;
 void main()
 {
 	fragColor = vertColor;
+
+
+	vertPosition.x /= aspect;
+
+
 	gl_Position = mProj * mView * mWorld * vec4(vertPosition, 1.0);
 }
