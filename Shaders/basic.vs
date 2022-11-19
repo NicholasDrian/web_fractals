@@ -16,7 +16,7 @@ void main()
 
 	vec4 pos = mProj * mView * mWorld * vec4(vertPosition, 1.0);
 
-	pos.x /= aspect;
+	// pos.x /= aspect;
 
 	gl_Position = pos;
 }

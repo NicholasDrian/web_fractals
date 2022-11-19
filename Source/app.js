@@ -159,6 +159,8 @@ var Run = function () {
 		aspect = canvas.clientWidth / canvas.clientHeight;
 		gl.uniform1f(aspectUniformLocation, aspect);
 
+		mat4.perspective(projMatrix, glMatrix.toRadian(45), aspect, 0.1, 1000.0);
+		gl.uniformMatrix4fv(matProjUniformLocation, gl.FALSE, projMatrix);
 
 		gl.drawElements(gl.TRIANGLES, triangleIndices.length, gl.UNSIGNED_SHORT, 0);
 		requestAnimationFrame(tick);
