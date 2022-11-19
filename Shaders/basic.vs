@@ -14,9 +14,9 @@ void main()
 {
 	fragColor = vertColor;
 
+	vec4 pos = mProj * mView * mWorld * vec4(vertPosition, 1.0);
 
-	vertPosition.x /= aspect;
+	pos.x /= aspect;
 
-
-	gl_Position = mProj * mView * mWorld * vec4(vertPosition, 1.0);
+	gl_Position = pos;
 }
