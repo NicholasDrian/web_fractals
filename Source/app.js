@@ -44,7 +44,7 @@ var Init = function () {
 
 		}
 	});
-	
+
 };
 
 
@@ -106,6 +106,21 @@ var Run = function () {
 		6 * Float32Array.BYTES_PER_ELEMENT, 
 		3 * Float32Array.BYTES_PER_ELEMENT);
 	gl.enableVertexAttribArray(colorAttribLocation);
+
+	var matWorldUniformLocation = gl.getUniformLocation(program, 'mWorld');
+	var matViewUniformLocation = gl.getUniformLocation(program, 'mView');
+	var matProjUniformLocation = gl.getUniformLocation(program, 'mProj');
+
+	var worldMatrix = new Float32Array(16);
+	var viewMatrix = new Float32Array(16);
+	var projMatrix = new Float32Array(16);
+	mat4.identity(worldMatrix);
+	mat4.lookAt(viewMatrix, [0, 0, -8], [0, 0, 0], [0, 1, 0]);
+	mat4.perspective(projMatrix, glMatrix.toRadian(45), canvas.clientWidth / canvas.clientHeight, 0.1, 1000.0);
+
+	gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
+	gl.uniformMatrix4fv(matViewUniformLocation, gl.FALSE, viewMatrix);
+	gl.uniformMatrix4fv(matProjUniformLocation, gl.FALSE, projMatrix);
 
 	fps = new fpsTracker();
 
