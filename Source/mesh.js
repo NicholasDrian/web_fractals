@@ -6,4 +6,6 @@ var Mesh = class {
 		this.Indices = Indices;
 	}
 
+	
+
 };
