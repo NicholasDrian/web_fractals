@@ -131,9 +131,6 @@ var Run = function () {
 
 
 
-
-
-
 	fps = new fpsTracker();
 
 	var tick = function() {
