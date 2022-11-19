@@ -60,6 +60,7 @@ var fpsTracker = class {
   			this.previousTime = time;
   			this.framesPassed = 0;
   			console.log("FPS: " + Math.floor(fps));
+  			console.log("Aspect: " + canvas.clientWidth / canvas.clientHeight);
   		}
   	}
 
