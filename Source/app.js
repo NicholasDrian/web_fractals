@@ -109,7 +109,9 @@ var Run = function () {
 
 
 
-
+	var aspect = canvas.clientWidth / canvas.clientHeight;
+	var aspectUniformLocation = gl.getUniformLocation(program, 'aspect');
+	gl.unifrom1f(aspectUniformLocation, gl.FALSE, aspect);
 
 
 	var matWorldUniformLocation = gl.getUniformLocation(program, 'mWorld');
@@ -121,7 +123,7 @@ var Run = function () {
 	var projMatrix = new Float32Array(16);
 	mat4.identity(worldMatrix);
 	mat4.lookAt(viewMatrix, [0, 0, -8], [0, 0, 0], [0, 1, 0]);
-	mat4.perspective(projMatrix, glMatrix.toRadian(45), 1 /*canvas.clientWidth / canvas.clientHeight*/, 0.1, 1000.0);
+	mat4.perspective(projMatrix, glMatrix.toRadian(45), aspect, 0.1, 1000.0);
 
 	gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
 	gl.uniformMatrix4fv(matViewUniformLocation, gl.FALSE, viewMatrix);

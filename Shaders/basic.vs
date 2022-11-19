@@ -8,6 +8,8 @@ uniform mat4 mWorld;
 uniform mat4 mView;
 uniform mat4 mProj;
 
+uniform float aspect;
+
 void main()
 {
 	fragColor = vertColor;
