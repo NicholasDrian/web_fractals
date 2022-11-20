@@ -21,7 +21,7 @@ var Camera = class {
 
 		
 		
-		document.addEventListener('keypress', (event) => {
+		document.addEventListener('onkeypress', (event) => {
 	  		var name = event.key;
 	  		var code = event.code;
 	  		alert(`Key pressed ${name} \r\n Key code value: ${code}`);
