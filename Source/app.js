@@ -1,18 +1,19 @@
-var canvas;
+var canvas = document.getElementById("screen");
 var gl;
 var shaders;
 
 var glInit = function () {
 
-	canvas = document.getElementById("screen");
-
 	gl = canvas.getContext('webgl');
+
 	if (!gl) {
 		gl = cnavas.getContext('expiramental-webgl');
 	}
+
 	if (!gl) {
 		alert('Your browser does not support WebGL');
 	}
+	
 	gl.clearColor(0.5, 0.5, 0.5, 1.0);
 
 }
@@ -161,7 +162,7 @@ var Run = function () {
 	}
 
 	requestAnimationFrame(tick);
-};
+}; 
 
 
 
