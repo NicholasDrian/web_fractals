@@ -86,10 +86,10 @@ var Camera = class {
 	turnRight(amount) {
 		var sin = Math.sin(amount);
 		var cos = Math.cos(amount);
-		this.Forward = [
-			cos * this.Forward[0] + sin * this.Forward[2],
-			this.Forward[1],
-			-sin * this.Forward[0] + cos * this.Forward[2]
+		this.forward = [
+			cos * this.forward[0] + sin * this.forward[2],
+			this.forward[1],
+			-sin * this.forward[0] + cos * this.forward[2]
 		]
 	}
 
