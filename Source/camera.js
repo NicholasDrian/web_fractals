@@ -17,7 +17,10 @@ var Camera = class {
 		var proj = new Float32Array(16);
 		mat4.perspective(proj, glMatrix.toRadian(45), aspect, 0.1, 1000.0);
 
-		return proj * view;
+		var projView = new Float32Array(16);
+		mat4.mul(projView, proj, view);
+
+		return projView;
 	}
 
 };
