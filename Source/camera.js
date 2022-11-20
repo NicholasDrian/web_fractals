@@ -22,9 +22,9 @@ var Camera = class {
 		
 		
 		document.addEventListener('keydown', (event) => {
-	  		var name = event.key;
-	  		var code = event.code;
-	  		alert(`Key pressed ${name} \r\n Key code value: ${code}`);
+	  		if (event.code == 'ArrowLeft') {
+	  			console.log("left");
+	  		}
   		}, false);
 
   		document.addEventListener('keyup', (event) => {
