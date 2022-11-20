@@ -84,7 +84,7 @@ var Run = function () {
 	]
 
 	var mesh = new Mesh(vertices, indices);
-	mesh.bind();
+	mesh.bind(program);
 
 /*	var triangleVertexBufferObject = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);

@@ -6,7 +6,7 @@ var Mesh = class {
 		this.Indices = Indices;
 	}
 
-	bind() {
+	bind(program) {
 
 		var vbo = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
