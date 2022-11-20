@@ -69,11 +69,11 @@ var Run = function () {
 	}
 
 	var vertices = 
-	[ // X,    Y,   Z       R,   G,   B  
-		  -1.0, -1.0, 0.0,    1.0, 1.0, 0.0,
-	 	  -1.0,  1.0, 0.0,    0.0, 1.0, 1.0,
-		   1.0,  1.0, 0.0,    1.0, 0.0, 1.0,
-		   1.0, -1.0, 0.0,    0.0, 1.0, 0.0
+	[ // X,    Y,    Z       R,   G,   B  
+		  -1.0, -1.0,  0.0,    1.0, 1.0, 0.0,
+	 	  -1.0,  1.0,  0.0,    0.0, 1.0, 1.0,
+		   1.0,  1.0,  0.0,    1.0, 0.0, 1.0,
+		   1.0, -1.0,  0.0,    0.0, 1.0, 0.0
 
 	]
 
@@ -83,61 +83,23 @@ var Run = function () {
 		2, 3, 0
 	]
 
-	var mesh = new Mesh(vertices, indices);
+	var worldMatrix = new Float32Array(16);
+	mat4.identity(worldMatrix);
+	var mesh = new Mesh(vertices, indices, worldMatrix);
 	mesh.bind(program);
-
-/*	var triangleVertexBufferObject = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
-
-	var triangleIndexBufferObject = gl.createBuffer();
-	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, triangleIndexBufferObject);
-	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(triangleIndices), gl.STATIC_DRAW);
-
-  var positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
-	gl.vertexAttribPointer(
-		positionAttribLocation, 
-		3, 
-		gl.FLOAT, 
-		gl.FALSE, 
-		6 * Float32Array.BYTES_PER_ELEMENT, 
-		0);
-	gl.enableVertexAttribArray(positionAttribLocation);
-
-	var colorAttribLocation = gl.getAttribLocation(program, 'vertColor');
-	gl.vertexAttribPointer(
-		colorAttribLocation, 
-		3, 
-		gl.FLOAT, 
-		gl.FALSE, 
-		6 * Float32Array.BYTES_PER_ELEMENT, 
-		3 * Float32Array.BYTES_PER_ELEMENT);
-	gl.enableVertexAttribArray(colorAttribLocation);*/
-
-
 
 	var aspect = canvas.clientWidth / canvas.clientHeight;
 
-	var matWorldUniformLocation = gl.getUniformLocation(program, 'mWorld');
+	
 	var matProjViewUniformLocation = gl.getUniformLocation(program, 'mProjView');
 
-	var worldMatrix = new Float32Array(16);
-	mat4.identity(worldMatrix);
+	
 
 	var camera = new Camera([0, 0, -8], [0, 0, 1], [0, 1, 0], 45);
 	var projViewMatrix = camera.getProjView();
 
-	gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
+	
 	gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projViewMatrix);
-
-
-
-	var xRotationMatrix = new Float32Array(16);
-	var yRotationMatrix = new Float32Array(16);
-	var identityMatrix = new Float32Array(16);
-	mat4.identity(identityMatrix);
-	var angle;
-
 
 	fps = new fpsTracker();
 
@@ -145,13 +107,6 @@ var Run = function () {
 		fps.update();
 		updateSize();
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-
-		angle = performance.now() / 1000 / 6 * 2 * Math.PI;
-		mat4.rotate(yRotationMatrix, identityMatrix, angle, [0, 1, 0]);
-		mat4.rotate(xRotationMatrix, identityMatrix, angle / 4, [1, 0, 0]);
-		mat4.mul(worldMatrix, yRotationMatrix, xRotationMatrix);
-		//gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
 
 		projViewMatrix = camera.getProjView();
 		gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projViewMatrix);

@@ -1,9 +1,10 @@
 
 var Mesh = class {
 
-	constructor(Vertices, Indices) {
+	constructor(Vertices, Indices, Transform) {
 		this.vertices = Vertices;
-		this.Indices = Indices;
+		this.indices = Indices;
+		this.transform = Transform;
 	}
 
 	bind(program) {
@@ -14,7 +15,7 @@ var Mesh = class {
 
 		var ibo = gl.createBuffer();
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);
-		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.Indices), gl.STATIC_DRAW);
+		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.indices), gl.STATIC_DRAW);
 
 	  	var positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
 		gl.vertexAttribPointer(
@@ -36,6 +37,8 @@ var Mesh = class {
 			3 * Float32Array.BYTES_PER_ELEMENT);
 		gl.enableVertexAttribArray(colorAttribLocation);
 
+		var matWorldUniformLocation = gl.getUniformLocation(program, 'mWrold');
+		gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, this.transform);
 	}
 
 };
