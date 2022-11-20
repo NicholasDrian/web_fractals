@@ -8,20 +8,20 @@ var Camera = class {
 		this.fovy = FOVY;
 
 		this.isTurningRight = false;
-		this.isTurningLeft = false
-		this.isLookingUp = false;
-		this.isLookingRight = false;
+		this.isTurningLeft = false;
 
 		this.addEvents();
+
+		this.lastFrameTime = performance.now();
 
 	}
 
 
 	addEvents() {
 
-	
-		this.lastFrameTime = performance.now();
-		document.addEventListener('keydown', (event) => {
+		
+		
+		document.addEventListener('keypress', (event) => {
 	  		var name = event.key;
 	  		var code = event.code;
 	  		alert(`Key pressed ${name} \r\n Key code value: ${code}`);
@@ -46,6 +46,10 @@ var Camera = class {
 		gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projView);
 
 		this.lastFrameTime = performance.now();
+	}
+
+	turnRight(amount) {
+
 	}
 
 };
