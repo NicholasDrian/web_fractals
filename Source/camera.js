@@ -14,7 +14,7 @@ var Camera = class {
 		var proj = new Float32Array(16);
 		var projView = new Float32Array(16);
 
-		mat4.lookAt(view, this.position, this.position + this.forward, this.up);
+		mat4.lookAt(view, this.position, sumVec3(this.position, this.forward), this.up);
 		var aspect = canvas.clientWidth / canvas.clientHeight;
 		mat4.perspective(proj, glMatrix.toRadian(this.fovy), aspect, 0.1, 1000.0);
 		mat4.mul(projView, proj, view);
