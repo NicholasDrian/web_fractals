@@ -18,26 +18,36 @@ var Camera = class {
 
 
 	addEvents() {
-
-		
 		
 		document.addEventListener('keydown', (event) => {
-	  		if (event.code == 'ArrowLeft') {
-	  			console.log("left");
+	  		switch (event.code) {
+  			case 'ArrowLeft':
+  				this.isTurningLeft = true;
+  				break;
+  			case 'ArrowRight':
+  				this.isTurningRight = true;
+  				break;
 	  		}
   		}, false);
 
   		document.addEventListener('keyup', (event) => {
-	  		var name = event.key;
-	  		var code = event.code;
-	  		alert(`Key pressed ${name} \r\n Key code value: ${code}`);
+	  		switch (event.code) {
+  			case 'ArrowLeft':
+  				this.isTurningLeft = false;
+  				break;
+  			case 'ArrowRight':
+  				this.isTurningRight = false;
+  				break;
+	  		}
   		}, false);
 
 	}
 
 	setProjView(program) {
 
-		updateScreenSize();
+		this.updateScreenSize();
+
+		this.updatePosition();
 
 		var view = new Float32Array(16);
 		var proj = new Float32Array(16);
@@ -51,11 +61,36 @@ var Camera = class {
 		var matProjViewUniformLocation = gl.getUniformLocation(program, 'mProjView');
 		gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projView);
 
-		this.lastFrameTime = performance.now();
+	}
+
+	updateScreenSize() {
+	    var width = window.innerWidth;
+	    var height = window.innerHeight;
+	    if (canvas.width != width || canvas.height != height) {
+	  	    canvas.width = width;
+	  	    canvas.height = height;
+	    }
+	    gl.viewport(0, 0, width, height);
+	}
+
+	updatePosition() {
+		var now = performance.now();
+		if (this.isTurningLeft == true) {
+			this.turnRight((this.lastFrameTime - now) / 5000);
+		} else if (this.isTurningRight == true) {
+			this.turnRight((now - this.lastFrameTime) / 5000);
+		}
+		this.lastFrameTime = now;
 	}
 
 	turnRight(amount) {
-
+		var sin = Math.sin(amount);
+		var cos = Math.cos(amount);
+		this.Forward = [
+			cos * this.Forward[0] + sin * this.Forward[2],
+			this.Forward[1],
+			-sin * this.Forward[0] + cos * this.Forward[2],
+		]
 	}
 
 };
