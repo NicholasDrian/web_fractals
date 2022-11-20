@@ -12,7 +12,7 @@ var Camera = class {
 		this.isLookingUp = false;
 		this.isLookingRight = false;
 
-		addEvents();
+		this.addEvents();
 
 	}
 
