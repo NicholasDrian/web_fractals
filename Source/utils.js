@@ -1,4 +1,4 @@
-function updateSize() {
+function updateScreenSize() {
   var width = window.innerWidth;
   var height = window.innerHeight;
   if (canvas.width != width ||
@@ -60,7 +60,6 @@ var fpsTracker = class {
   			this.previousTime = time;
   			this.framesPassed = 0;
   			console.log("FPS: " + Math.floor(fps));
-  			//console.log("Aspect: " + canvas.clientWidth / canvas.clientHeight);
   		}
   	}
 

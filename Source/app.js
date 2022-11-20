@@ -74,18 +74,17 @@ var Run = function () {
 	 	  -1.0,  1.0,  0.0,    0.0, 1.0, 1.0,
 		   1.0,  1.0,  0.0,    1.0, 0.0, 1.0,
 		   1.0, -1.0,  0.0,    0.0, 1.0, 0.0
-
-	]
+	];
 
 	var indices = 
 	[  
 		0, 1, 2,
 		2, 3, 0
-	]
+	];
 
-	var worldMatrix = new Float32Array(16);
-	mat4.identity(worldMatrix);
-	var mesh = new Mesh(vertices, indices, worldMatrix);
+	var meshTransform = new Float32Array(16);
+	mat4.identity(meshTransform);
+	var mesh = new Mesh(vertices, indices, meshTransform);
 	mesh.bind(program);
 
 
@@ -96,13 +95,14 @@ var Run = function () {
 	fps = new fpsTracker();
 
 	var tick = function() {
-		fps.update();
-		updateSize();
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+		fps.update();
 
 		camera.setProjView(program);
 
-		gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+		mesh.draw();
+
 		requestAnimationFrame(tick);
 	}
 

@@ -10,6 +10,8 @@ var Camera = class {
 
 	setProjView(program) {
 
+		updateScreenSize();
+
 		var view = new Float32Array(16);
 		var proj = new Float32Array(16);
 		var projView = new Float32Array(16);

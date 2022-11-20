@@ -41,4 +41,8 @@ var Mesh = class {
 		gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, this.transform);
 	}
 
+	draw() {
+		gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+	}
+
 };
