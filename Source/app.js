@@ -100,8 +100,7 @@ var Run = function () {
 		updateSize();
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-		projViewMatrix = camera.getProjView();
-		gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projViewMatrix);
+		camera.setProjView(program);
 
 		gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
 		requestAnimationFrame(tick);
