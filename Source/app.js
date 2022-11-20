@@ -124,8 +124,8 @@ var Run = function () {
 	var camera = new Camera([0, 0, -8], [0, 0, 1], [0, 1, 0], 45);
 	var projViewMatrix = camera.getProjView();
 
-	gl.uniformMatrix4fv(matWorldUniformLocation, worldMatrix);
-	gl.uniformMatrix4fv(matProjViewUniformLocation, projViewMatrix);
+	gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
+	gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projViewMatrix);
 
 
 
