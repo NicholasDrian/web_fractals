@@ -89,7 +89,7 @@ var Camera = class {
 		this.Forward = [
 			cos * this.Forward[0] + sin * this.Forward[2],
 			this.Forward[1],
-			-sin * this.Forward[0] + cos * this.Forward[2],
+			-sin * this.Forward[0] + cos * this.Forward[2]
 		]
 	}
 
