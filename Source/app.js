@@ -156,7 +156,7 @@ var Run = function () {
 		projViewMatrix = camera.getProjView();
 		gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projViewMatrix);
 
-		gl.drawElements(gl.TRIANGLES, triangleIndices.length, gl.UNSIGNED_SHORT, 0);
+		gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
 		requestAnimationFrame(tick);
 	}
 
