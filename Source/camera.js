@@ -87,9 +87,9 @@ var Camera = class {
 		var sin = Math.sin(amount);
 		var cos = Math.cos(amount);
 		this.forward = [
-			cos * this.forward[0] + sin * this.forward[2],
+			cos * this.forward[0] + -sin * this.forward[2],
 			this.forward[1],
-			-sin * this.forward[0] + cos * this.forward[2]
+			sin * this.forward[0] + cos * this.forward[2]
 		]
 	}
 
