@@ -88,13 +88,10 @@ var Run = function () {
 	var mesh = new Mesh(vertices, indices, worldMatrix);
 	mesh.bind(program);
 
-	var matProjViewUniformLocation = gl.getUniformLocation(program, 'mProjView');
 
 	var camera = new Camera([0, 0, -8], [0, 0, 1], [0, 1, 0], 45);
-	var projViewMatrix = camera.getProjView();
+	camera.setProjView(program);
 
-	
-	gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projViewMatrix);
 
 	fps = new fpsTracker();
 

@@ -8,7 +8,7 @@ var Camera = class {
 		this.fovy = FOVY;
 	}
 
-	getProjView() {
+	setProjView(program) {
 
 		var view = new Float32Array(16);
 		var proj = new Float32Array(16);
@@ -19,7 +19,8 @@ var Camera = class {
 		mat4.perspective(proj, glMatrix.toRadian(this.fovy), aspect, 0.1, 1000.0);
 		mat4.mul(projView, proj, view);
 
-		return projView;
+		var matProjViewUniformLocation = gl.getUniformLocation(program, 'mProjView');
+		gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projView);
 	}
 
 };
