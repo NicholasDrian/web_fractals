@@ -52,13 +52,6 @@ var Init = function () {
 var Run = function () {
 
 
-	document.addEventListener('keydown', (event) => {
-	  var name = event.key;
-	  var code = event.code;
-	  // Alert the key name and key code on keydown
-	  alert(`Key pressed ${name} \r\n Key code value: ${code}`);
-  	}, false);
-
 	var program = gl.createProgram();
 	gl.attachShader(program, shaders.get("basic.vs"));
 	gl.attachShader(program, shaders.get("basic.fs"));

@@ -6,6 +6,27 @@ var Camera = class {
 		this.forward = Forward;
 		this.up = Up;
 		this.fovy = FOVY;
+
+		this.isTurningRight = false;
+		this.isTurningLeft = false
+		this.isLookingUp = false;
+		this.isLookingRight = false;
+
+		addEvents();
+
+	}
+
+
+	addEvents() {
+
+	
+		this.lastFrameTime = performance.now();
+		document.addEventListener('keydown', (event) => {
+	  		var name = event.key;
+	  		var code = event.code;
+	  		alert(`Key pressed ${name} \r\n Key code value: ${code}`);
+  		}, false);
+
 	}
 
 	setProjView(program) {
@@ -23,6 +44,8 @@ var Camera = class {
 
 		var matProjViewUniformLocation = gl.getUniformLocation(program, 'mProjView');
 		gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projView);
+
+		this.lastFrameTime = performance.now();
 	}
 
 };
