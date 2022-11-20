@@ -9,6 +9,8 @@ var Camera = class {
 
 		this.isTurningRight = false;
 		this.isTurningLeft = false;
+		this.isMovingForward = false;
+		this.isMovingBackward = false;
 
 		this.addEvents();
 
@@ -27,6 +29,12 @@ var Camera = class {
   			case 'ArrowRight':
   				this.isTurningRight = true;
   				break;
+  			case 'ArrowUp':
+  				this.isMovingForward = true;
+  				break;
+  			case 'ArrowDown':
+  				this.isMovingBackward = true;
+  				break;
 	  		}
   		}, false);
 
@@ -37,6 +45,12 @@ var Camera = class {
   				break;
   			case 'ArrowRight':
   				this.isTurningRight = false;
+  				break;
+	  		case 'ArrowUp':
+  				this.isMovingForward = false;
+  				break;
+  			case 'ArrowDown':
+  				this.isMovingBackward = false;
   				break;
 	  		}
   		}, false);
@@ -80,6 +94,13 @@ var Camera = class {
 		} else if (this.isTurningRight == true) {
 			this.turnRight((now - this.lastFrameTime) / 2000);
 		}
+
+		if (this.isMovingForward == true) {
+			this.goForward((now - this.lastFrameTime) / 500);
+		} else if (this.isMovingBackward) {
+			this.goForward((this.lastFrameTime - now) / 500);
+		}
+
 		this.lastFrameTime = now;
 	}
 
@@ -91,6 +112,15 @@ var Camera = class {
 			this.forward[1],
 			sin * this.forward[0] + cos * this.forward[2]
 		]
+	}
+
+	goForward(amount) {
+		var magnitude = Math.sqrt(
+			this.forward[0] * this.forward[0] + 
+		    this.forward[2] * this.forward[2]
+		    );
+		this.position[0] += this.forward[0] * amount / magnitude;
+		this.position[2] += this.forward[2] * amount / magnitude;
 	}
 
 };
