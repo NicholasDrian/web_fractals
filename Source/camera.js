@@ -1,27 +1,23 @@
 
 var Camera = class {
 
-	constructor(Position, Forward, Up, FOV) {
+	constructor(Position, Forward, Up, FOVY) {
 		this.position = Position;
 		this.forward = Forward;
 		this.up = Up;
-		this.fov = FOV;
+		this.fovy = FOVY;
 	}
 
-	getProjectionMatrix() {
+	getProjView() {
 
-	}
+		var view = new Float32Array(16);
+		mat4.lookAt(view, this.position, this.position + this.forward, this.up);
 
-	moveForward(amount) {
-		this.position += this.forward * amount;
-	}
+		var aspect = canvas.clientWidth / canvas.clientHeight;
+		var proj = new Float32Array(16);
+		mat4.perspective(proj, glMatrix.toRadian(45), aspect, 0.1, 1000.0);
 
-	turnRight(rads) {
-
-	}
-
-	lookUp(rads) {
-
+		return proj * view;
 	}
 
 };
