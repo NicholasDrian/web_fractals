@@ -76,9 +76,9 @@ var Camera = class {
 	updatePosition() {
 		var now = performance.now();
 		if (this.isTurningLeft == true) {
-			this.turnRight((this.lastFrameTime - now) / 5000);
+			this.turnRight((this.lastFrameTime - now) / 2000);
 		} else if (this.isTurningRight == true) {
-			this.turnRight((now - this.lastFrameTime) / 5000);
+			this.turnRight((now - this.lastFrameTime) / 2000);
 		}
 		this.lastFrameTime = now;
 	}
