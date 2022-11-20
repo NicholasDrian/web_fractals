@@ -42,7 +42,7 @@ var Mesh = class {
 	}
 
 	draw() {
-		gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+		gl.drawElements(gl.TRIANGLES, this.indices.length, gl.UNSIGNED_SHORT, 0);
 	}
 
 };
