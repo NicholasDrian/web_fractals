@@ -37,7 +37,7 @@ var Mesh = class {
 			3 * Float32Array.BYTES_PER_ELEMENT);
 		gl.enableVertexAttribArray(colorAttribLocation);
 
-		var matWorldUniformLocation = gl.getUniformLocation(program, 'mWrold');
+		var matWorldUniformLocation = gl.getUniformLocation(program, 'mWorld');
 		gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, this.transform);
 	}
 
