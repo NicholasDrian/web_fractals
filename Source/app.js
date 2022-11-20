@@ -68,7 +68,7 @@ var Run = function () {
 		return;
 	}
 
-	var triangleVertices = 
+	var vertices = 
 	[ // X,    Y,   Z       R,   G,   B  
 		  -1.0, -1.0, 0.0,    1.0, 1.0, 0.0,
 	 	  -1.0,  1.0, 0.0,    0.0, 1.0, 1.0,
@@ -77,13 +77,16 @@ var Run = function () {
 
 	]
 
-	var triangleIndices = 
+	var indices = 
 	[  
 		0, 1, 2,
 		2, 3, 0
 	]
 
-	var triangleVertexBufferObject = gl.createBuffer();
+	var mesh = new Mesh(vertices, indices);
+	mesh.bind();
+
+/*	var triangleVertexBufferObject = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
 
@@ -109,7 +112,7 @@ var Run = function () {
 		gl.FALSE, 
 		6 * Float32Array.BYTES_PER_ELEMENT, 
 		3 * Float32Array.BYTES_PER_ELEMENT);
-	gl.enableVertexAttribArray(colorAttribLocation);
+	gl.enableVertexAttribArray(colorAttribLocation);*/
 
 
 
