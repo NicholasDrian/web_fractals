@@ -124,8 +124,8 @@ var Run = function () {
 	var camera = new Camera([0, 0, -8], [0, 0, 1], [0, 1, 0], 45);
 	var projViewMatrix = camera.getProjView();
 
-	gl.uniformMatrix4fv(matWorldUniformLocation, false, worldMatrix);
-	gl.uniformMatrix4fv(matProjViewUniformLocation, false, projViewMatrix);
+	gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
+	gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projViewMatrix);
 
 
 
@@ -151,7 +151,7 @@ var Run = function () {
 		//gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
 
 		projViewMatrix = camera.getProjView();
-		gl.uniformMatrix4fv(matProjViewUniformLocation, false, projViewMatrix);
+		gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projViewMatrix);
 
 		gl.drawElements(gl.TRIANGLES, triangleIndices.length, gl.UNSIGNED_SHORT, 0);
 		requestAnimationFrame(tick);
