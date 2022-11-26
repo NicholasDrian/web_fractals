@@ -1,10 +1,12 @@
 var canvas = document.getElementById("screen");
 var gl;
-var shaders;
 
-var glInit = function () {
 
-	gl = canvas.getContext('webgl');
+var Init = function () {
+	gl = canvas.getContext('webgl2');
+	console.log(gl.getParameter(gl.VERSION));
+	console.log(gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
+	console.log(gl.getParameter(gl.VENDOR));
 
 	if (!gl) {
 		gl = cnavas.getContext('expiramental-webgl');
@@ -16,35 +18,10 @@ var glInit = function () {
 	
 	gl.clearColor(0.5, 0.5, 0.5, 1.0);
 
-}
+	gl.enable(gl.CULL_FACE);
+	gl.cullFace(gl.BACK);
 
-var Init = function () {
-
-	glInit();
-
-	shaders = new Shaders();
-
-	loadTextResource('../Shaders/basic.vs', function (Err, basic_vs) {
-		if (Err) {
-			alert('Fatal error getting vertex shader (see console)');
-			console.error(Err);
-		} else {
-			shaders.add("basic.vs", basic_vs);
-
-			loadTextResource('../Shaders/basic.fs', function (Err, basic_fs) {
-				if (Err) {
-					alert('Fatal error getting vertex shader (see console)');
-					console.error(Err);
-				} else {
-					shaders.add("basic.fs", basic_fs);
-
-					Run();
-
-				}
-			});
-
-		}
-	});
+	Run();
 
 };
 
@@ -53,8 +30,8 @@ var Run = function () {
 
 
 	var program = gl.createProgram();
-	gl.attachShader(program, shaders.get("basic.vs"));
-	gl.attachShader(program, shaders.get("basic.fs"));
+	gl.attachShader(program, CompileVS(basic_vs));
+	gl.attachShader(program, CompileFS(basic_fs));
 	gl.linkProgram(program);
 	gl.useProgram(program);
 	if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
@@ -69,27 +46,11 @@ var Run = function () {
 		return;
 	}
 
-	var vertices = 
-	[ // X,    Y,    Z       R,   G,   B  
-		  -1.0, -1.0,  0.0,    1.0, 1.0, 0.0,
-	 	  -1.0,  1.0,  0.0,    0.0, 1.0, 1.0,
-		   1.0,  1.0,  0.0,    1.0, 0.0, 1.0,
-		   1.0, -1.0,  0.0,    0.0, 1.0, 0.0
-	];
-
-	var indices = 
-	[  
-		0, 1, 2,
-		2, 3, 0
-	];
-
-	var meshTransform = new Float32Array(16);
-	mat4.identity(meshTransform);
-	var mesh = new Mesh(vertices, indices, meshTransform);
+	var mesh = GenerateMeshScreen(3, 400, 2);
 	mesh.bind(program);
 
 
-	var camera = new Camera([0, 0, -8], [0, 0, 1], [0, 1, 0], 45);
+	var camera = new Camera([0, 2, -2], [0, -1, 1], [0, 1, 0], 45);
 	camera.setProjView(program);
 
 

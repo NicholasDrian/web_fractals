@@ -90,15 +90,15 @@ var Camera = class {
 	updatePosition() {
 		var now = performance.now();
 		if (this.isTurningLeft == true) {
-			this.turnRight((this.lastFrameTime - now) / 2000);
+			this.turnRight((this.lastFrameTime - now) / 500);
 		} else if (this.isTurningRight == true) {
-			this.turnRight((now - this.lastFrameTime) / 2000);
+			this.turnRight((now - this.lastFrameTime) / 500);
 		}
 
 		if (this.isMovingForward == true) {
-			this.goForward((now - this.lastFrameTime) / 500);
+			this.goForward((now - this.lastFrameTime) / 100);
 		} else if (this.isMovingBackward) {
-			this.goForward((this.lastFrameTime - now) / 500);
+			this.goForward((this.lastFrameTime - now) / 100);
 		}
 
 		this.lastFrameTime = now;
