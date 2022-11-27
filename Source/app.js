@@ -51,8 +51,6 @@ var Run = function () {
 
 
 	var camera = new Camera([0, 2, -2], [0, -1, 1], [0, 1, 0], 45);
-	camera.setProjView(program);
-
 
 	fps = new fpsTracker();
 
@@ -61,7 +59,7 @@ var Run = function () {
 
 		fps.update();
 
-		camera.setProjView(program);
+		camera.update(program);
 
 		mesh.draw();
 

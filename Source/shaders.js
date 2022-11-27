@@ -40,26 +40,25 @@ int iterate() {
 		zr += cr;
 		zi += ci;
 
-		if (zr * zr + zi * zi > MAX_SIZE_SQUARED) {
-			return iter;
-		}
+		if (zr * zr + zi * zi > MAX_SIZE_SQUARED) return iter;
 	}
 	return MAX_ITER;
 }
 
+vec3 toColor(int i) {
+	float p = float(i) / float(MAX_ITER);
+
+	return vec3(p, 1.0 - p, 1.0);
+}
+
 void main()
 {
-
-	int iterations = iterate();
-	if (iterations == MAX_ITER) 
-	{
+	/*if (iterate() == MAX_ITER) 
 		fragColor = vec3(0.0, 0.0, 1.0);
-	}
 	else  
-	{
-		fragColor = vec3(1.0, 0.0, 0.0);
-	}
+		fragColor = vec3(1.0, 0.0, 0.0);*/
 
+	fragColor = toColor(iterate());
 	gl_Position = mProjView * mWorld * vec4(vertPosition, 1.0);
 
 }

@@ -2,6 +2,8 @@
 var Camera = class {
 
 	constructor(Position, Forward, Up, FOVY) {
+		normalize(Forward);
+		normalize(Up);
 		this.position = Position;
 		this.forward = Forward;
 		this.up = Up;
@@ -11,6 +13,8 @@ var Camera = class {
 		this.isTurningLeft = false;
 		this.isMovingForward = false;
 		this.isMovingBackward = false;
+		this.isLookingUp = false;
+		this.isLookingDown = false;
 
 		this.addEvents();
 
@@ -30,9 +34,15 @@ var Camera = class {
   				this.isTurningRight = true;
   				break;
   			case 'ArrowUp':
-  				this.isMovingForward = true;
+  				this.isLookingUp = true;
   				break;
   			case 'ArrowDown':
+  				this.isLookingDown = true;
+  				break;
+  			case 'KeyW':
+  				this.isMovingForward = true;
+  				break;
+  			case 'KeyS':
   				this.isMovingBackward = true;
   				break;
 	  		}
@@ -47,9 +57,15 @@ var Camera = class {
   				this.isTurningRight = false;
   				break;
 	  		case 'ArrowUp':
-  				this.isMovingForward = false;
+  				this.isLookingUp = false;
   				break;
   			case 'ArrowDown':
+  				this.isLookingDown = false;
+  				break;
+  			case 'KeyW':
+  				this.isMovingForward = false;
+  				break;
+  			case 'KeyS':
   				this.isMovingBackward = false;
   				break;
 	  		}
@@ -57,12 +73,25 @@ var Camera = class {
 
 	}
 
-	setProjView(program) {
-
-		this.updateScreenSize();
+	update(program) {
 
 		this.updatePosition();
+		this.updateScreen();
+		this.updateProj(program);
 
+	}
+
+	updateScreen() {
+		var width = window.innerWidth;
+	    var height = window.innerHeight;
+	    if (canvas.width != width || canvas.height != height) {
+	  	    canvas.width = width;
+	  	    canvas.height = height;
+	    }
+	    gl.viewport(0, 0, width, height);
+	}
+
+	updateProj(program) {
 		var view = new Float32Array(16);
 		var proj = new Float32Array(16);
 		var projView = new Float32Array(16);
@@ -74,31 +103,26 @@ var Camera = class {
 
 		var matProjViewUniformLocation = gl.getUniformLocation(program, 'mProjView');
 		gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projView);
-
-	}
-
-	updateScreenSize() {
-	    var width = window.innerWidth;
-	    var height = window.innerHeight;
-	    if (canvas.width != width || canvas.height != height) {
-	  	    canvas.width = width;
-	  	    canvas.height = height;
-	    }
-	    gl.viewport(0, 0, width, height);
 	}
 
 	updatePosition() {
 		var now = performance.now();
-		if (this.isTurningLeft == true) {
+		if (this.isTurningLeft) {
 			this.turnRight((this.lastFrameTime - now) / 500);
 		} else if (this.isTurningRight == true) {
 			this.turnRight((now - this.lastFrameTime) / 500);
 		}
 
-		if (this.isMovingForward == true) {
-			this.goForward((now - this.lastFrameTime) / 100);
+		if (this.isLookingUp) {
+			this.lookUp((now - this.lastFrameTime) / 500);
+		} else if (this.isLookingDown) {
+			this.lookUp((this.lastFrameTime - now) / 500);
+		}
+
+		if (this.isMovingForward) {
+			this.goForward((now - this.lastFrameTime) / 500);
 		} else if (this.isMovingBackward) {
-			this.goForward((this.lastFrameTime - now) / 100);
+			this.goForward((this.lastFrameTime - now) / 500);
 		}
 
 		this.lastFrameTime = now;
@@ -114,13 +138,17 @@ var Camera = class {
 		]
 	}
 
-	goForward(amount) {
-		var magnitude = Math.sqrt(
-			this.forward[0] * this.forward[0] + 
-		    this.forward[2] * this.forward[2]
-		    );
-		this.position[0] += this.forward[0] * amount / magnitude;
-		this.position[2] += this.forward[2] * amount / magnitude;
+	lookUp(amount) {
+		if (amount > 0 && this.forward[1] > 0.9) return;
+		if (amount < 0 && this.forward[1] < -0.9) return;
+		this.forward[1] += amount;
+		normalize(this.forward);
 	}
+
+	goForward(amount) {
+		//todo
+	}
+
+
 
 };
