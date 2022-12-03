@@ -16,7 +16,7 @@ var Init = function () {
 		alert('Your browser does not support WebGL');
 	}
 	
-	gl.clearColor(0.5, 0.5, 0.5, 1.0);
+	gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
 	gl.enable(gl.CULL_FACE);
 	gl.cullFace(gl.BACK);
@@ -46,11 +46,10 @@ var Run = function () {
 		return;
 	}
 
-	var mesh = GenerateMeshScreen(3, 400, 2);
+	var mesh = GenerateMeshScreen(3, 500, 10);
 	mesh.bind(program);
 
-
-	var camera = new Camera([0, 2, -2], [0, -1, 1], [0, 1, 0], 45);
+	var camera = new Camera([0, 1, 0], [0, -1, 1], [0, 1, 0], 90, program);
 
 	fps = new fpsTracker();
 

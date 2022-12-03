@@ -13,19 +13,20 @@ var basic_vs = `
 precision mediump float;
 precision highp int;
 
-const int MAX_ITER = 20;
+const int MAX_ITER = 200;
 const float MAX_SIZE_SQUARED = 10.0;
 
 attribute vec3 vertPosition;
 
 varying vec3 fragColor;
 
-uniform mat4 mWorld;
-uniform mat4 mProjView;
+uniform mat4 ProjView;
+uniform vec2 Center;
+uniform float Scale;
 
 int iterate() {
-	float cr = vertPosition.x;
-	float ci = vertPosition.z;
+	float cr = vertPosition.x / Scale - Center.x;
+	float ci = vertPosition.z / Scale - Center.y;
 	float zr = 0.0;
 	float zi = 0.0;
 
@@ -59,7 +60,7 @@ void main()
 		fragColor = vec3(1.0, 0.0, 0.0);*/
 
 	fragColor = toColor(iterate());
-	gl_Position = mProjView * mWorld * vec4(vertPosition, 1.0);
+	gl_Position = ProjView * vec4(vertPosition, 1.0);
 
 }
 

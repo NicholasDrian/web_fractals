@@ -1,13 +1,14 @@
 
 var Camera = class {
 
-	constructor(Position, Forward, Up, FOVY) {
+	constructor(Position, Forward, Up, FOVY, Program) {
 		normalize(Forward);
 		normalize(Up);
 		this.position = Position;
 		this.forward = Forward;
 		this.up = Up;
 		this.fovy = FOVY;
+		this.program = Program;
 
 		this.isTurningRight = false;
 		this.isTurningLeft = false;
@@ -15,6 +16,13 @@ var Camera = class {
 		this.isMovingBackward = false;
 		this.isLookingUp = false;
 		this.isLookingDown = false;
+
+		this.scale = 1;
+		this.center = [0, 0];
+
+		this.projViewLocation = gl.getUniformLocation(this.program, 'ProjView');
+		this.scaleLocation = gl.getUniformLocation(this.program, 'Scale');
+		this.centerLocation = gl.getUniformLocation(this.program, 'Center');
 
 		this.addEvents();
 
@@ -74,11 +82,9 @@ var Camera = class {
 	}
 
 	update(program) {
-
-		this.updatePosition();
 		this.updateScreen();
-		this.updateProj(program);
-
+		this.updatePosition();
+		this.updateFractalUniforms();
 	}
 
 	updateScreen() {
@@ -91,19 +97,6 @@ var Camera = class {
 	    gl.viewport(0, 0, width, height);
 	}
 
-	updateProj(program) {
-		var view = new Float32Array(16);
-		var proj = new Float32Array(16);
-		var projView = new Float32Array(16);
-
-		mat4.lookAt(view, this.position, sumVec3(this.position, this.forward), this.up);
-		var aspect = canvas.clientWidth / canvas.clientHeight;
-		mat4.perspective(proj, glMatrix.toRadian(this.fovy), aspect, 0.1, 1000.0);
-		mat4.mul(projView, proj, view);
-
-		var matProjViewUniformLocation = gl.getUniformLocation(program, 'mProjView');
-		gl.uniformMatrix4fv(matProjViewUniformLocation, gl.FALSE, projView);
-	}
 
 	updatePosition() {
 		var now = performance.now();
@@ -146,9 +139,27 @@ var Camera = class {
 	}
 
 	goForward(amount) {
-		//todo
+		var zoomAmount = this.forward[1] * amount;
+		this.center[0] -= this.forward[0] * amount / this.scale;
+		this.center[1] -= this.forward[2] * amount / this.scale;
+		this.scale *= 1 - zoomAmount;
 	}
 
+	updateFractalUniforms() {
+		var view = new Float32Array(16);
+		var proj = new Float32Array(16);
+		var projView = new Float32Array(16);
+
+		mat4.lookAt(view, this.position, sumVec3(this.position, this.forward), this.up);
+		var aspect = canvas.clientWidth / canvas.clientHeight;
+		mat4.perspective(proj, glMatrix.toRadian(this.fovy), aspect, 0.1, 1000.0);
+		mat4.mul(projView, proj, view);
+		
+		gl.uniformMatrix4fv(this.projViewLocation, gl.FALSE, projView);
+		gl.uniform2fv(this.centerLocation, new Float32Array(this.center));
+		gl.uniform1f(this.scaleLocation, this.scale);
+
+	}
 
 
 };
