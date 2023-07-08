@@ -17,6 +17,9 @@ var Init = function () {
 	}
 	
 	gl.clearColor(0.0, 0.0, 0.0, 1.0);
+	//gl.enable(gl.DEPTH_BUFFER_BIT);
+	gl.enable(gl.DEPTH_TEST);
+	gl.depthFunc(gl.LESS);
 
 	gl.enable(gl.CULL_FACE);
 	gl.cullFace(gl.BACK);
@@ -46,10 +49,10 @@ var Run = function () {
 		return;
 	}
 
-	var mesh = GenerateMeshScreen(3, 500, 10);
+	var mesh = GenerateMeshScreen(10, 1000, 10);
 	mesh.bind(program);
 
-	var camera = new Camera([0, 1, 0], [0, -1, 1], [0, 1, 0], 90, program);
+	var camera = new Camera([0, 0.5, -1], [0, -1, 1], [0, 1, 0], 120, program);
 
 	fps = new fpsTracker();
 

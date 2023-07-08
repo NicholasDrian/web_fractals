@@ -19,7 +19,6 @@ var GenerateMeshScreen = function (size, resolution, factor) {
 			var bl = (resolution + 1) * (i + 1) + j;
 			var br = bl + 1;
 			indices.push(bl, tl, tr, tr, br, bl);
-			//indices.push(tr, br, bl);
 			
 		}
 	}

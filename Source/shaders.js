@@ -1,7 +1,7 @@
 var basic_fs = `
 precision mediump float;
 
-const int MAX_ITER = 200;
+const int MAX_ITER = 300;
 const float MAX_SIZE_SQUARED = 10.0;
 
 varying vec3 fragPos;
@@ -38,9 +38,17 @@ vec3 toColor(int i) {
 	float p = float(i) / float(MAX_ITER);
 	p *= p;
 	vec3 res = vec3(p, 1.0 - p, 1.0);
-	res.x += fragNorm.x;
 
-	if (mod(float(i), 2.0) < 0.1) res *= -1.0;
+	float cycle = mod(float(i), 5.0) / 5.0;
+	res *= vec3(cycle, cycle, cycle);
+
+	float h = fragNorm.x / 2.0;
+	float v = fragNorm.z / 2.0; // z?
+
+	res.x += h;
+
+	res.z += v;
+
 	return res;
 }
 
@@ -93,7 +101,7 @@ int iterate(vec3 pos) {
 
 vec3 move(float i) {
 	vec3 pos = vertPosition;
-	pos.y -= pow(2.0, i / 200.0);
+	pos.y -= pow(2.0, 1.0 + i / 100.0);
 	return pos;
 }
 
@@ -109,7 +117,7 @@ void main()
 
 
 	vec3 origin = vec3(0.0,0.0,float(i1));
-	fragNorm = cross(origin - vec3(0.01,0.0,i2), origin - vec3(0.0,0.01,i3));
+	fragNorm = normalize(cross(origin - vec3(0.01,0.0,i2), origin - vec3(0.0,0.01,i3)));
 
 	gl_Position = ProjView * vec4(pos, 1.0);
 	
